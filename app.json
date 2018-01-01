@@ -17,11 +17,15 @@
     "images": {
 	    "large": "/assets/images/large.jpg",
 	    "small": "/assets/images/small.jpg"
-    }
+    },
     "drivers": [
 	    {
 		    "id": "luxio",
 		    "class": "light",
+		    "images": {
+			    "large": "/drivers/luxio/assets/images/large.jpg",
+			    "small": "/drivers/luxio/assets/images/small.jpg"
+		    },
 		    "capabilities": [
 		    	"onoff",
 		    	"dim",
