@@ -1,0 +1,25 @@
+{
+  "name": "lighting.luxio.homey",
+  "version": "1.0.0",
+  "description": "Adds support for Luxio Wi-Fi LED Strips",
+  "main": "app.js",
+  "dependencies": {
+    "luxio": "^1.0.0",
+    "tinycolor2": "^1.4.1",
+    "tinygradient": "^0.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeeJeWel/luxio.lighting.homey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WeeJeWel/luxio.lighting.homey/issues"
+  },
+  "homepage": "https://github.com/WeeJeWel/luxio.lighting.homey#readme"
+}

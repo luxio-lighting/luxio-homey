@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="../../dist/luxio.js"></script>
+		<script type="text/javascript">
+		var Discovery = Luxio.Discovery;
+		var discovery = new Discovery();
+		
+		discovery.getDevices()
+			.then( devices => {
+				devices.forEach( device => {
+					
+					device.sync().then(() => {
+					
+						console.log('ID:', device.id);
+						console.log('-- Name:', device.name);
+						console.log('-- Version:', device.version);
+						console.log('-- Pixels:', device.pixels);
+						console.log('-- On:', device.on);
+						console.log('-- Brightness:', device.brightness);
+						console.log('-- Effect:', device.effect);
+						console.log('-- Gradient:', device.gradient);
+						console.log('-- Mode:', device.mode);
+						console.log('');
+						
+						if( window.location.hash && window.location.hash.substring(1) === device.name ) {
+							device.on = true;
+							device.brightness = 1;
+							device.gradient = [ '#FF0000', '#0000FF' ];
+							//device.effect = 'rainbow';
+							
+							device.sync().catch( console.error );
+						}
+					
+					})
+					.catch( console.error );
+					
+				});
+			})
+			.catch( console.error );
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>
