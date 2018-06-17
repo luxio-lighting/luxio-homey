@@ -2,7 +2,6 @@
 
 const Homey = require('homey');
 const tinycolor = require('tinycolor2');
-const tinygradient = require('tinygradient');
 
 const POLL_INTERVAL = 7500;
 
@@ -15,7 +14,6 @@ class LuxioDevice extends Homey.Device {
 			this._device = this._driver.getDevice( this.id );
 			
 			if( typeof this._device === 'undefined' ) {
-				
 				this.setUnavailable( new Error('Offline') );
 				
 				this._driver.once(`device_${this.id}`, device => {
@@ -56,25 +54,27 @@ class LuxioDevice extends Homey.Device {
 		this._sync().catch( this.error );
 	}
 	
-	_sync() {
+	async _sync() {
 		return this._device.sync().then(() => {
 			this.setCapabilityValue('onoff', this._device.on);
 			this.setCapabilityValue('dim', this._device.brightness);
 			
-			let color = this._device.gradient[0];
-				color = tinycolor(`${color}`);
-			
-			let hsv = color.toHsv();
-			
-			if( this._mode === 'color' ) {
-				this._hue = hsv.h/360;
-				this._saturation = hsv.s;
+			if( this._device.mode === 'gradient' ) {		
+				const color = this._device.gradient[0];
+				const hsv = tinycolor(`${color}`).toHsv();
 				
-				this.setCapabilityValue('light_hue', this._hue);
-				this.setCapabilityValue('light_saturation', this._saturation);
-			} else if( this._mode === 'temperature' ) {
-				// TODO: Somehow figure out how to determine temperature from the gradient
-				// this.setCapabilityValue('light_temperature', );
+				if( this._mode === 'color' ) {					
+					this._hue = hsv.h/360;
+					this._saturation = hsv.s;
+					
+					this.setCapabilityValue('light_hue', this._hue);
+					this.setCapabilityValue('light_saturation', this._saturation);
+				} else if( this._mode === 'temperature' ) {
+					// TODO: Somehow figure out how to determine temperature from the gradient
+					// this.setCapabilityValue('light_temperature', );
+				}
+			} else if( this._device.mode === 'effect' ) {
+				// ...
 			}
 			
 			this.setAvailable();
@@ -87,25 +87,26 @@ class LuxioDevice extends Homey.Device {
 	
 	onRenamed( name ) {
 		this._device.name = name;
-		return this._sync();
+		this._sync().catch(this.error);
 	}
 	
 	onDeleted() {
-		if( this._syncStateInterval ) clearInterval(this._syncStateInterval);
+		if( this._syncStateInterval )
+			clearInterval(this._syncStateInterval);
 	}
 	
-	onCapabilityOnoff( value ) {
+	async onCapabilityOnoff( value ) {
 		this._device.on = value;
 		return this._sync();
 	}
 	
-	onCapabilityDim( value ) {
+	async onCapabilityDim( value ) {
 		this._device.on = ( value > 0 );
 		this._device.brightness = value;
 		return this._sync();
 	}
 	
-	onCapabilityLightHueSat( values ) {
+	async onCapabilityLightHueSat( values ) {
 		if( typeof values.light_hue === 'number' )
 			this._hue = values.light_hue;
 			
@@ -116,43 +117,33 @@ class LuxioDevice extends Homey.Device {
 		return this._setColor();
 	}
 	
-	onCapabilityLightTemperature( value ) {
+	async onCapabilityLightTemperature( value ) {
 		this._temperature = value;
 		this._mode = 'temperature';
 		return this._setColor();	
 		
 	}
 	
-	onCapabilityLightMode( value ) {
+	async onCapabilityLightMode( value ) {
 		this._mode = value;
 		return this._setColor();		
 	}
 	
-	_setColor() {
-		let color;
-		
+	async _setColor() {		
 		if( this._mode === 'color' ) {
-			color = tinycolor({
+			this._device.color = tinycolor({
 				h: this._hue * 360,
 				s: this._saturation,
 				l: 0.5
-			})
-		
+			}).toHexString();		
 		} else if( this._mode === 'temperature' ) {
-			let g = tinygradient('#CCFBFD', '#FFFFFF', '#FFDA73').hsv(99);
-			color = g[Math.floor(this._temperature*98)]
+			this._device.colorTemperature = this._temperature;
 		}
-				
-		color = color
-			.toHexString()
-			.substring(1) // remove #
-			.toUpperCase();
-				
-		this._device.gradient = [ color, color ];
+		
 		return this._sync();
 	}
 	
-	setEffect( effect ) {
+	async setEffect( effect ) {
 		this._device.effect = effect;
 		return this._sync();
 	}

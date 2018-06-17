@@ -8,12 +8,13 @@ class LuxioDriver extends Homey.Driver {
 	onInit() {		
 		this._devices = {};		
 		this._discovery = new Discovery();
+		
 		this.refreshDevices();
 		setInterval(this.refreshDevices.bind(this), 1000 * 30);
 			
 		new Homey.FlowCardAction('set_effect')
 			.register()
-			.registerRunListener( ( args, state ) => {
+			.registerRunListener(( args, state ) => {
 				return args.device.setEffect( args.effect );
 			})
 		
@@ -36,8 +37,7 @@ class LuxioDriver extends Homey.Driver {
 	}
 	
 	onPairListDevices( data, callback ) {
-		
-		let devices = [];
+		const devices = [];
 		for( let deviceId in this._devices ) {
 			let device = this._devices[ deviceId ];
 			

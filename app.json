@@ -1,109 +1,108 @@
 {
-    "id": "lighting.luxio.homey",
-    "sdk": 2,
-    "name": {
+  "id": "lighting.luxio.homey",
+  "sdk": 2,
+  "name": {
+    "en": "Luxio"
+  },
+  "description": {
+    "en": "Adds support for Luxio Wi-Fi LED Strips"
+  },
+  "category": "lights",
+  "version": "1.1.0",
+  "compatibility": "1.x >=1.5.0",
+  "author": {
+    "name": "Luxio Lighting",
+    "email": "info@luxio.lighting"
+  },
+  "images": {
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
+  },
+  "flow": {
+    "actions": [
+      {
+        "id": "set_effect",
+        "title": {
+          "en": "Set an Effect",
+          "nl": "Start een Effect"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "type": "dropdown",
+            "name": "effect",
+            "values": [
+              {
+                "id": "rainbow",
+                "label": {
+                  "en": "Rainbow"
+                }
+              },
+              {
+                "id": "colorcycle",
+                "label": {
+                  "en": "Color Cycle"
+                }
+              },
+              {
+                "id": "knightrider",
+                "label": {
+                  "en": "Knight Rider"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "class": "light",
+      "images": {
+        "large": "/drivers/luxio/assets/images/large.jpg",
+        "small": "/drivers/luxio/assets/images/small.jpg"
+      },
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "light_temperature",
+        "light_mode",
+        "luxio_gradient"
+      ],
+      "name": {
         "en": "Luxio"
-    },
-    "description": {
-        "en": "Adds support for Luxio Wi-Fi LED Strips"
-    },
-    "category": "lights",
-    "version": "1.0.0",
-    "compatibility": "1.x >=1.5.0",
-    "author": {
-        "name": "Emile Nijssen",
-        "email": "emilenijssen@gmail.com"
-    },
-    "images": {
-	    "large": "/assets/images/large.jpg",
-	    "small": "/assets/images/small.jpg"
-    },
-    "drivers": [
-	    {
-		    "id": "luxio",
-		    "class": "light",
-		    "images": {
-			    "large": "/drivers/luxio/assets/images/large.jpg",
-			    "small": "/drivers/luxio/assets/images/small.jpg"
-		    },
-		    "capabilities": [
-		    	"onoff",
-		    	"dim",
-		    	"light_hue",
-		    	"light_saturation",
-		    	"light_temperature",
-		    	"light_mode",
-		    	"luxio_gradient"
-		    ],
-		    "name": {
-			    "en": "Luxio"
-		    },
-		    "pair": [
-			    {
-				    "id": "list_devices",
-				    "template": "list_devices",
-				    "navigation": {
-					    "next": "add_devices"
-				    }
-			    },
-			    {
-				    "id": "add_devices",
-				    "template": "add_devices"
-			    }
-		    ]
-	    }
-    ],
-    "flow": {
-	    "actions": [
-		    {
-			    "id": "set_effect",
-			    "title": {
-				    "en": "Set an Effect"
-			    },
-			    "args": [
-				    {
-					    "type": "device",
-					    "name": "device",
-					    "filter": {
-						    "driver_id": "luxio"
-					    }
-				    },
-				    {
-					    "type": "dropdown",
-					    "name": "effect",
-					    "values": [
-						    {
-							    "id": "rainbow",
-							    "label": {
-								    "en": "Rainbow"
-							    }
-						    },
-						    {
-							    "id": "colorcycle",
-							    "label": {
-								    "en": "Color Cycle"
-							    }
-						    },
-						    {
-							    "id": "knightrider",
-							    "label": {
-								    "en": "Knight Rider"
-							    }
-						    }
-					    ]
-				    }
-				]
-		    }
-	    ]
-    },
-    "capabilities": {
-	    "luxio_gradient": {
-		    "type": "string",
-		    "title": {
-			    "en": "Luxio Gradient"
-		    },
-		    "getable": true,
-		    "setable": true
-	    }
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "luxio"
     }
+  ],
+  "capabilities": {
+    "luxio_gradient": {
+      "type": "string",
+      "title": {
+        "en": "Luxio Gradient"
+      },
+      "getable": true,
+      "setable": true
+    }
+  }
 }

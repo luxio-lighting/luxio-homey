@@ -1,0 +1,37 @@
+{
+	"actions": [
+	    {
+		    "id": "set_effect",
+		    "title": {
+			    "en": "Set an Effect",
+			    "nl": "Start een Effect"
+		    },
+		    "args": [
+			    {
+				    "type": "dropdown",
+				    "name": "effect",
+				    "values": [
+					    {
+						    "id": "rainbow",
+						    "label": {
+							    "en": "Rainbow"
+						    }
+					    },
+					    {
+						    "id": "colorcycle",
+						    "label": {
+							    "en": "Color Cycle"
+						    }
+					    },
+					    {
+						    "id": "knightrider",
+						    "label": {
+							    "en": "Knight Rider"
+						    }
+					    }
+				    ]
+			    }
+			]
+	    }
+    ]
+}
