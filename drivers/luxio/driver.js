@@ -3,56 +3,56 @@
 const Homey = require('homey');
 const Discovery = require('luxio').Discovery;
 
-class LuxioDriver extends Homey.Driver {
-	
-	onInit() {		
-		this._devices = {};		
-		this._discovery = new Discovery();
-		
-		this.refreshDevices();
-		setInterval(this.refreshDevices.bind(this), 1000 * 30);
-			
-		new Homey.FlowCardAction('set_effect')
-			.register()
-			.registerRunListener(( args, state ) => {
-				return args.device.setEffect( args.effect );
-			})
-		
-	}
-	
-	getDevice( luxioId ) {
-		return this._devices[ luxioId ];
-	}
-	
-	refreshDevices() {		
-		this._discovery.getDevices().then( devices => {
-			for( let deviceId in devices ) {
-				let device = devices[deviceId];
-				if( typeof this._devices[deviceId] === 'undefined' ) {
-					this._devices[deviceId] = device;
-					this.emit(`device_${deviceId}`, device);
-				}
-			}
-		}).catch( this.error );
-	}
-	
-	onPairListDevices( data, callback ) {
-		const devices = [];
-		for( let deviceId in this._devices ) {
-			let device = this._devices[ deviceId ];
-			
-			devices.push({
-				data: {
-					id: deviceId
-				},
-				name: device.name
-			});
-		}
-				
-		callback( null, devices );
-		
-	}
-	
-}
+const POLL_INTERVAL = 1000 * 30;
 
-module.exports = LuxioDriver;
+module.exports = class LuxioDriver extends Homey.Driver {
+  
+  onInit() {    
+    this._devices = {};    
+    this._discovery = new Discovery();
+    
+    this.pollDevices = this.pollDevices.bind(this);
+    this.pollDevices();
+    setInterval(this.pollDevices, POLL_INTERVAL);
+      
+    new Homey.FlowCardAction('set_effect')
+      .register()
+      .registerRunListener(async args => {
+        return args.device.setEffect(args.effect);
+      })
+    
+  }
+  
+  async getDevice(id) {
+    const device = this._devices[id];
+    if(device) return device;
+    
+    return new Promise(resolve => {
+      this.once(`device_${id}`, resolve);
+    });
+  }
+  
+  pollDevices() {    
+    this._discovery.getDevices().then(devices => {
+      Object.values(devices).forEach(device => {
+        if( this._devices[device.id] ) return;
+        
+        this._devices[device.id] = device;
+        this.emit(`device_${device.id}`, device);
+      });
+    }).catch( this.error );
+  }
+  
+  onPairListDevices( data, callback ) {
+    const devices = Object.values(this._devices).map(device => {      
+      return {
+        data: {
+          id: device.id,
+        },
+        name: device.name
+      };
+    });
+    callback( null, devices );
+  }
+  
+}

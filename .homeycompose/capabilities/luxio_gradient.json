@@ -4,5 +4,6 @@
 	    "en": "Luxio Gradient"
     },
     "getable": true,
-    "setable": true
+    "setable": true,
+    "uiComponent": null
 }

@@ -1,6 +1,7 @@
 {
   "id": "lighting.luxio.homey",
   "sdk": 2,
+  "brandColor": "#000000",
   "name": {
     "en": "Luxio"
   },
@@ -8,8 +9,8 @@
     "en": "Adds support for Luxio Wi-Fi LED Strips"
   },
   "category": "lights",
-  "version": "1.1.0",
-  "compatibility": "1.x >=1.5.0",
+  "version": "1.2.0",
+  "compatibility": ">=2.5.0",
   "author": {
     "name": "Luxio Lighting",
     "email": "info@luxio.lighting"
@@ -102,7 +103,8 @@
         "en": "Luxio Gradient"
       },
       "getable": true,
-      "setable": true
+      "setable": true,
+      "uiComponent": null
     }
   }
 }
