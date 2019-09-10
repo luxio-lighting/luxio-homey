@@ -1,32 +1,33 @@
 {
-	"class": "light",
-    "images": {
-	    "large": "{{driverAssetsPath}}/images/large.jpg",
-	    "small": "{{driverAssetsPath}}/images/small.jpg"
-    },
-    "capabilities": [
-    	"onoff",
-    	"dim",
-    	"light_hue",
-    	"light_saturation",
-    	"light_temperature",
-    	"light_mode",
-    	"luxio_gradient"
-    ],
-    "name": {
-	    "en": "Luxio"
-    },
-    "pair": [
-	    {
-		    "id": "list_devices",
-		    "template": "list_devices",
-		    "navigation": {
-			    "next": "add_devices"
-		    }
-	    },
-	    {
-		    "id": "add_devices",
-		    "template": "add_devices"
+  "class": "light",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.jpg",
+    "small": "{{driverAssetsPath}}/images/small.jpg"
+  },
+  "capabilities": [
+  	"onoff",
+  	"dim",
+  	"light_hue",
+  	"light_saturation",
+  	"light_temperature",
+  	"light_mode",
+  	"luxio_gradient"
+  ],
+  "name": {
+    "en": "Luxio"
+  },
+  "discovery": "luxio",
+  "pair": [
+    {
+	    "id": "list_devices",
+	    "template": "list_devices",
+	    "navigation": {
+		    "next": "add_devices"
 	    }
-	]
+    },
+    {
+	    "id": "add_devices",
+	    "template": "add_devices"
+    }
+]
 }

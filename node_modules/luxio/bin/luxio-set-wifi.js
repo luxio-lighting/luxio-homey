@@ -10,10 +10,15 @@ cmd
 	.option('-p, --pass <pass>', 'Password of the Wi-Fi Network')
 	.parse(process.argv)
 	
-if( typeof cmd.ssid === 'undefined' )
+const {
+  ssid,
+  pass,
+} = cmd;
+	
+if( typeof ssid === 'undefined' )
 	return console.error('Option `-s, --ssid` is required!')
 	
-if( typeof cmd.ssid === 'undefined' )
+if( typeof pass === 'undefined' )
 	return console.error('Option `-p, --pass` is required!')
 	
 helpers.getDevices({
@@ -22,8 +27,8 @@ helpers.getDevices({
 }).then( devices => {
 	return devices.forEach( device => {
 		device.setWifiNetwork({
-			ssid: cmd.ssid,
-			pass: cmd.pass
+			ssid,
+			pass,
 		}).then(() => {
 			console.log(`Set device ${device.id} Wi-Fi to ${cmd.ssid}`)
 		}).catch( err => {

@@ -80,6 +80,7 @@
       "name": {
         "en": "Luxio"
       },
+      "discovery": "luxio",
       "pair": [
         {
           "id": "list_devices",
@@ -105,6 +106,16 @@
       "getable": true,
       "setable": true,
       "uiComponent": null
+    }
+  },
+  "discovery": {
+    "luxio": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "protocol": "tcp",
+        "name": "luxio"
+      },
+      "id": "{{txt.id}}"
     }
   }
 }
