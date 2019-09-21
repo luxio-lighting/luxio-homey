@@ -1,63 +1,46 @@
 'use strict';
 
 const Homey = require('homey');
+const LuxioDevice = require('luxio').Device;
 const tinycolor = require('tinycolor2');
-const { Device: LuxioDevice } = require('luxio');
 
-const SYNC_INTERVAL = 7500;
+const SYNC_INTERVAL = 5000;
 
-module.exports = class LuxioDevice extends Homey.Device {
+module.exports = class extends Homey.Device {
 
   onInit() {
-    this.sync = this.sync.bind(this);
-
-    this.id = this.getData().id;
-    this._driver = this.getDriver();
-    this.setUnavailable( new Error('Offline') );
-
-    this._driver.ready(() => {
-      this._driver.getDevice(this.id).then(device => {
-        this._device = device;
-
-        this._hue = this.getCapabilityValue('light_hue');
-        if( this._hue === null ) this._hue = 0;
-
-        this._saturation = this.getCapabilityValue('light_saturation');
-        if( this._saturation === null ) this._saturation = 1;
-
-        this._temperature = this.getCapabilityValue('light_saturation');
-        if( this._temperature === null ) this._temperature = 0.5;
-
-        this._mode = this.getCapabilityValue('light_mode');
-        if( this._mode === null ) this._mode = 'color';
-
-        this.syncInterval = setInterval(this.sync, SYNC_INTERVAL);
-        this.sync();
-
-      }).catch(err => {
-        this.error(err);
-        this.setUnavailable(err);
-      });
-    });
-
     this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this));
     this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
     this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this));
     this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
     this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
-
   }
 
   onDiscoveryResult(discoveryResult) {
     return discoveryResult.id === this.getData().id;
   }
 
-  onDiscoveryAvailable(discoveryResult) {
+  async onDiscoveryAvailable(discoveryResult) {
     this._device = new LuxioDevice(discoveryResult.id, {
       address: discoveryResult.address,
       name: discoveryResult.txt.name,
       version: discoveryResult.txt.version,
     });
+    
+    this._hue = this.getCapabilityValue('light_hue');
+    if( this._hue === null ) this._hue = 0;
+
+    this._saturation = this.getCapabilityValue('light_saturation');
+    if( this._saturation === null ) this._saturation = 1;
+
+    this._temperature = this.getCapabilityValue('light_saturation');
+    if( this._temperature === null ) this._temperature = 0.5;
+
+    this._mode = this.getCapabilityValue('light_mode');
+    if( this._mode === null ) this._mode = 'color';
+
+    this.syncInterval = setInterval(this.sync.bind(this), SYNC_INTERVAL);
+    this.sync();
   }
 
   onDiscoveryAddressChanged(discoveryResult) {
