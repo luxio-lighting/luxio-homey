@@ -11,7 +11,8 @@
   	"light_saturation",
   	"light_temperature",
   	"light_mode",
-  	"luxio_gradient"
+  	"luxio_gradient",
+  	"luxio_effect"
   ],
   "name": {
     "en": "Luxio"

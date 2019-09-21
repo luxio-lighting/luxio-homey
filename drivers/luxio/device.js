@@ -14,6 +14,14 @@ module.exports = class extends Homey.Device {
     this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this));
     this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
     this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
+    
+    Promise.resolve().then(async () => {
+      if( !this.hasCapability('luxio_effect') && typeof this.addCapability === 'function' ) {
+        await this.addCapability('luxio_effect');
+      }
+      
+    this.registerCapabilityListener('luxio_effect', this.onCapabilityLuxioEffect.bind(this));
+    }).catch(this.error);
   }
 
   onDiscoveryResult(discoveryResult) {
@@ -119,6 +127,10 @@ module.exports = class extends Homey.Device {
   async onCapabilityLightMode( value ) {
     this._mode = value;
     return this._setColor();
+  }
+  
+  async onCapabilityLuxioEffect( effect ) {
+    return this.setEffect(effect);
   }
 
   async _setColor() {
