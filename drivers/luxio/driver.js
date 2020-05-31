@@ -7,12 +7,26 @@ module.exports = class LuxioDriver extends Homey.Driver {
   onInit() {
     new Homey.FlowCardAction('set_effect')
       .register()
-      .registerRunListener(async args => {
-        return args.device.setEffect(args.effect);
-      })
+      .registerRunListener(async ({ device, effect }) => {
+        return device.triggerCapabilityListener('luxio_effect', effect);
+      });
+
+    new Homey.FlowCardAction('set_gradient')
+      .register()
+      .registerRunListener(async ({ device, color1, color2, color3, color4, color5 }) => {
+        return device.triggerCapabilityListener('luxio_gradient', [
+          color1,
+          color2,
+          color3,
+          color4,
+          color5,
+        ].map(color => {
+          return color.substring(1).toUpperCase();
+        }).join(','));
+      });
   }
 
-  onPairListDevices( data, callback ) {
+  onPairListDevices(_, callback) {
     const discoveryStrategy = this.getDiscoveryStrategy();
     const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
@@ -24,7 +38,7 @@ module.exports = class LuxioDriver extends Homey.Driver {
         name: discoveryResult.txt.name,
       };
     });
-    callback( null, devices );
+    callback(null, devices);
   }
 
 }

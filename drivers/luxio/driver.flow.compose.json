@@ -1,37 +1,66 @@
 {
 	"actions": [
-	    {
-		    "id": "set_effect",
-		    "title": {
-			    "en": "Set an Effect",
-			    "nl": "Start een Effect"
-		    },
-		    "args": [
-			    {
-				    "type": "dropdown",
-				    "name": "effect",
-				    "values": [
-					    {
-						    "id": "rainbow",
-						    "label": {
-							    "en": "Rainbow"
-						    }
-					    },
-					    {
-						    "id": "colorcycle",
-						    "label": {
-							    "en": "Color Cycle"
-						    }
-					    },
-					    {
-						    "id": "knightrider",
-						    "label": {
-							    "en": "Knight Rider"
-						    }
-					    }
-				    ]
-			    }
+		{
+			"id": "set_effect",
+			"title": {
+				"en": "Set an effect",
+				"nl": "Start een effect"
+			},
+			"args": [
+				{
+					"type": "dropdown",
+					"name": "effect",
+					"values": [
+						{
+							"id": "rainbow",
+							"label": {
+								"en": "Rainbow"
+							}
+						},
+						{
+							"id": "colorcycle",
+							"label": {
+								"en": "Color Cycle"
+							}
+						},
+						{
+							"id": "knightrider",
+							"label": {
+								"en": "Knight Rider"
+							}
+						}
+					]
+				}
 			]
-	    }
-    ]
+		},
+		{
+			"id": "set_gradient",
+			"title": {
+				"en": "Set a gradient",
+				"nl": "Zet een kleurverloop"
+			},
+			"args": [
+				{
+					"type": "color",
+					"name": "color1"
+				},
+				{
+					"type": "color",
+					"name": "color2"
+				},
+				{
+					"type": "color",
+					"name": "color3"
+				},
+				{
+					"type": "color",
+					"name": "color4"
+				},
+				{
+					"type": "color",
+					"name": "color5"
+				}
+			]
+		}
+	]
 }

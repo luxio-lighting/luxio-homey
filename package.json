@@ -4,7 +4,8 @@
   "description": "Adds support for Luxio Wi-Fi LED Strips",
   "main": "app.js",
   "dependencies": {
-    "luxio": "^1.7.3",
-    "tinycolor2": "^1.4.1"
+    "node-fetch": "^2.6.0",
+    "tinycolor2": "^1.4.1",
+    "tinygradient": "^1.1.2"
   }
 }

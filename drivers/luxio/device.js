@@ -1,155 +1,124 @@
 'use strict';
 
 const Homey = require('homey');
-const LuxioDevice = require('luxio').Device;
 const tinycolor = require('tinycolor2');
 
-const SYNC_INTERVAL = 5000;
+const LuxioAPI = require('../../lib/LuxioAPI');
 
 module.exports = class extends Homey.Device {
+
+  static SYNC_INTERVAL = 5000;
+
+  constructor(...props) {
+    super(...props);
+
+    this.onSync = this.onSync.bind(this);
+  }
 
   onInit() {
     this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this));
     this.registerCapabilityListener('dim', this.onCapabilityDim.bind(this));
-    this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this));
-    this.registerCapabilityListener('light_temperature', this.onCapabilityLightTemperature.bind(this));
-    this.registerCapabilityListener('light_mode', this.onCapabilityLightMode.bind(this));
-    
-    Promise.resolve().then(async () => {
-      if( !this.hasCapability('luxio_effect') && typeof this.addCapability === 'function' ) {
-        await this.addCapability('luxio_effect');
-      }
-      
+    this.registerMultipleCapabilityListener(['light_hue', 'light_saturation'], this.onCapabilityLightHueSat.bind(this), 200);
     this.registerCapabilityListener('luxio_effect', this.onCapabilityLuxioEffect.bind(this));
-    }).catch(this.error);
+    this.registerCapabilityListener('luxio_gradient', this.onCapabilityLuxioGradient.bind(this));
   }
 
-  onDiscoveryResult(discoveryResult) {
-    return discoveryResult.id === this.getData().id;
+  onDiscoveryResult({ id }) {
+    return id === this.getData().id;
   }
 
-  async onDiscoveryAvailable(discoveryResult) {
-    this._device = new LuxioDevice(discoveryResult.id, {
-      address: discoveryResult.address,
-      name: discoveryResult.txt.name,
-      version: discoveryResult.txt.version,
-    });
-    
-    this._hue = this.getCapabilityValue('light_hue');
-    if( this._hue === null ) this._hue = 0;
+  async onDiscoveryAvailable({ id, address, txt }) {
+    this.log(`Found Luxio ${id} at ${address}`);
 
-    this._saturation = this.getCapabilityValue('light_saturation');
-    if( this._saturation === null ) this._saturation = 1;
+    const pixels = txt.pixels
+      ? Number(txt.pixels)
+      : undefined;
 
-    this._temperature = this.getCapabilityValue('light_saturation');
-    if( this._temperature === null ) this._temperature = 0.5;
+    this.api = new LuxioAPI({ address, pixels });
 
-    this._mode = this.getCapabilityValue('light_mode');
-    if( this._mode === null ) this._mode = 'color';
-
-    this.syncInterval = setInterval(this.sync.bind(this), SYNC_INTERVAL);
-    this.sync();
+    this.onSyncInterval = setInterval(this.onSync, this.constructor.SYNC_INTERVAL);
+    this.onSync();
   }
 
-  onDiscoveryAddressChanged(discoveryResult) {
-    this._device.address = discoveryResult.address;
+  onDiscoveryAddressChanged({ address }) {
+    this.api.setAddress({ address });
   }
 
-  onRenamed( name ) {
-    this._device.name = name;
-    this._device.sync().catch(this.error);
+  async onRenamed(value) {
+    await this.api.setName({ value });
   }
 
   onDeleted() {
-    if( this.syncInterval )
-      clearInterval(this.syncInterval);
+    if (this.onSyncInterval)
+      clearInterval(this.onSyncInterval);
   }
 
-  sync() {
-    this._device.sync().then(() => {
-      this.setCapabilityValue('onoff', this._device.on);
-      this.setCapabilityValue('dim', this._device.brightness);
+  onSync() {
+    Promise.resolve().then(async () => {
+      const {
+        on,
+        brightness,
+        gradient_source,
+        effect,
+        mode,
+      } = await this.api.getState();
 
-      if( this._device.mode === 'gradient' ) {
-        const color = this._device.gradient[0];
-        const hsv = tinycolor(`${color}`).toHsv();
+      await this.setCapabilityValue('onoff', on);
+      await this.setCapabilityValue('dim', brightness);
 
-        if( this._mode === 'color' ) {
-          this._hue = hsv.h/360;
-          this._saturation = hsv.s;
-
-          this.setCapabilityValue('light_hue', this._hue);
-          this.setCapabilityValue('light_saturation', this._saturation);
-        } else if( this._mode === 'temperature' ) {
-          // TODO: Somehow figure out how to determine temperature from the gradient
-          // this.setCapabilityValue('light_temperature', );
+      switch (mode) {
+        case 'gradient': {
+          const color = tinycolor(`#${gradient_source[0]}`);
+          const { h, s } = color.toHsv();
+          await this.setCapabilityValue('light_hue', h / 360);
+          await this.setCapabilityValue('light_saturation', s);
+          await this.setCapabilityValue('luxio_gradient', gradient_source.join(','));
+          break;
         }
-      } else if( this._device.mode === 'effect' ) {
-        // ...
+        case 'effect': {
+          await this.setCapabilityValue('light_hue', 0);
+          await this.setCapabilityValue('light_saturation', 0);
+          await this.setCapabilityValue('luxio_effect', effect);
+          break;
+        }
       }
 
       this.setAvailable();
-    }).catch( err => {
+    }).catch(err => {
       this.error(err);
       this.setUnavailable(err);
     });
   }
 
-  async onCapabilityOnoff( value ) {
-    this._device.on = value;
-    return this.sync();
+  async onCapabilityOnoff(value) {
+    await this.api.setOn({ value });
   }
 
-  async onCapabilityDim( value ) {
-    this._device.on = ( value > 0 );
-    this._device.brightness = value;
-    return this.sync();
+  async onCapabilityDim(value) {
+    await this.api.setBrightness({ value });
   }
 
-  async onCapabilityLightHueSat( values ) {
-    if( typeof values.light_hue === 'number' )
-      this._hue = values.light_hue;
+  async onCapabilityLightHueSat({
+    light_hue = this.getCapabilityValue('light_hue'),
+    light_saturation = this.getCapabilityValue('light_saturation'),
+  }) {
+    const value = tinycolor({
+      h: light_hue * 360,
+      s: light_saturation * 100,
+      l: 50,
+    }).toHex();
 
-    if( typeof values.light_saturation === 'number' )
-      this._saturation = values.light_saturation;
-
-    this._mode = 'color';
-    return this._setColor();
+    await this.api.setColor({ value });
   }
 
-  async onCapabilityLightTemperature( value ) {
-    this._temperature = value;
-    this._mode = 'temperature';
-    return this._setColor();
-
+  async onCapabilityLuxioEffect(value) {
+    await this.api.setEffect({ value });
   }
 
-  async onCapabilityLightMode( value ) {
-    this._mode = value;
-    return this._setColor();
-  }
-  
-  async onCapabilityLuxioEffect( effect ) {
-    return this.setEffect(effect);
-  }
-
-  async _setColor() {
-    if( this._mode === 'color' ) {
-      this._device.color = tinycolor({
-        h: this._hue * 360,
-        s: this._saturation,
-        l: 0.5
-      }).toHexString();
-    } else if( this._mode === 'temperature' ) {
-      this._device.colorTemperature = this._temperature;
-    }
-
-    return this.sync();
-  }
-
-  async setEffect( effect ) {
-    this._device.effect = effect;
-    return this.sync();
+  async onCapabilityLuxioGradient(value) {
+    await this.api.setGradient({
+      value: value.split(',').map(color => color.trim()),
+    });
   }
 
 }

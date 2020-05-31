@@ -5,14 +5,12 @@
     "small": "{{driverAssetsPath}}/images/small.jpg"
   },
   "capabilities": [
-  	"onoff",
-  	"dim",
-  	"light_hue",
-  	"light_saturation",
-  	"light_temperature",
-  	"light_mode",
-  	"luxio_gradient",
-  	"luxio_effect"
+    "onoff",
+    "dim",
+    "light_hue",
+    "light_saturation",
+    "luxio_gradient",
+    "luxio_effect"
   ],
   "name": {
     "en": "Luxio"
@@ -20,15 +18,15 @@
   "discovery": "luxio",
   "pair": [
     {
-	    "id": "list_devices",
-	    "template": "list_devices",
-	    "navigation": {
-		    "next": "add_devices"
-	    }
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
     },
     {
-	    "id": "add_devices",
-	    "template": "add_devices"
+      "id": "add_devices",
+      "template": "add_devices"
     }
-]
+  ]
 }

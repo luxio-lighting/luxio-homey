@@ -1,7 +1,7 @@
 {
     "type": "string",
     "title": {
-	    "en": "Luxio Gradient"
+        "en": "Gradient"
     },
     "getable": true,
     "setable": true,
