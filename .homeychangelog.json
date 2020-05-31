@@ -1,5 +1,8 @@
 {
   "1.4.0": {
     "en": "Updates."
+  },
+  "1.4.1": {
+    "en": "Automatically turn on when changing color or effect."
   }
 }
