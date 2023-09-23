@@ -19,6 +19,8 @@
     "email": "info@luxio.lighting"
   },
   "support": "mailto:info@luxio.lighting",
+  "homepage": "https://luxio.lighting",
+  "source": "https://github.com/luxio-lighting/luxio-homey",
   "images": {
     "xlarge": "/assets/images/xlarge.png",
     "large": "/assets/images/large.png",
