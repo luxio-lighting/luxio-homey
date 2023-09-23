@@ -1,0 +1,209 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "lighting.luxio.homey",
+  "sdk": 3,
+  "brandColor": "#000000",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Luxio"
+  },
+  "description": {
+    "en": "Open Source Wi-Fi Gradient LED Strips"
+  },
+  "category": "lights",
+  "version": "2.0.1",
+  "compatibility": ">=10.0.0",
+  "author": {
+    "name": "Luxio Lighting",
+    "email": "info@luxio.lighting"
+  },
+  "support": "mailto:info@luxio.lighting",
+  "images": {
+    "xlarge": "/assets/images/xlarge.png",
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "flow": {
+    "actions": [
+      {
+        "id": "set_effect",
+        "title": {
+          "en": "Set an effect",
+          "nl": "Start een effect"
+        },
+        "titleFormatted": {
+          "en": "Set effect to [[effect]]",
+          "nl": "Start effect [[effect]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "title": "Effect",
+            "type": "dropdown",
+            "name": "effect",
+            "values": [
+              {
+                "id": "rainbow",
+                "label": {
+                  "en": "Rainbow"
+                }
+              },
+              {
+                "id": "colorcycle",
+                "label": {
+                  "en": "Color Cycle"
+                }
+              },
+              {
+                "id": "knightrider",
+                "label": {
+                  "en": "Knight Rider"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_gradient",
+        "title": {
+          "en": "Set a gradient",
+          "nl": "Zet een kleurverloop"
+        },
+        "titleFormatted": {
+          "en": "Set gradient to [[color1]] [[color2]] [[color3]] [[color4]] [[color5]]",
+          "nl": "Zet kleurverloop naar [[color1]] [[color2]] [[color3]] [[color4]] [[color5]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "title": "Color 1",
+            "type": "color",
+            "name": "color1"
+          },
+          {
+            "title": "Color 2",
+            "type": "color",
+            "name": "color2"
+          },
+          {
+            "title": "Color 3",
+            "type": "color",
+            "name": "color3"
+          },
+          {
+            "title": "Color 4",
+            "type": "color",
+            "name": "color4"
+          },
+          {
+            "title": "Color 5",
+            "type": "color",
+            "name": "color5"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "class": "light",
+      "images": {
+        "xlarge": "/drivers/luxio/assets/images/xlarge.png",
+        "large": "/drivers/luxio/assets/images/large.png",
+        "small": "/drivers/luxio/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation",
+        "luxio_gradient",
+        "luxio_effect"
+      ],
+      "name": {
+        "en": "Luxio"
+      },
+      "discovery": "luxio",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "luxio"
+    }
+  ],
+  "capabilities": {
+    "luxio_effect": {
+      "type": "enum",
+      "title": {
+        "en": "Effect"
+      },
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "rainbow",
+          "title": {
+            "en": "Rainbow"
+          }
+        },
+        {
+          "id": "colorcycle",
+          "title": {
+            "en": "Color Cycle"
+          }
+        },
+        {
+          "id": "knightrider",
+          "title": {
+            "en": "Knight Rider"
+          }
+        }
+      ]
+    },
+    "luxio_gradient": {
+      "type": "string",
+      "title": {
+        "en": "Gradient"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": null
+    }
+  },
+  "discovery": {
+    "luxio": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "protocol": "tcp",
+        "name": "luxio"
+      },
+      "id": "{{txt.id}}"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Connect your Luxio Wi-Fi LED Strips to Homey Pro.

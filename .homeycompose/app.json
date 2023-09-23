@@ -1,0 +1,27 @@
+{
+  "id": "lighting.luxio.homey",
+  "sdk": 3,
+  "brandColor": "#000000",
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Luxio"
+  },
+  "description": {
+    "en": "Open Source Wi-Fi Gradient LED Strips"
+  },
+  "category": "lights",
+  "version": "2.0.1",
+  "compatibility": ">=10.0.0",
+  "author": {
+    "name": "Luxio Lighting",
+    "email": "info@luxio.lighting"
+  },
+  "support": "mailto:info@luxio.lighting",
+  "images": {
+    "xlarge": "/assets/images/xlarge.png",
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  }
+}

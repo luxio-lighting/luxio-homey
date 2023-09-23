@@ -1,0 +1,28 @@
+{
+    "type": "enum",
+    "title": {
+	    "en": "Effect"
+    },
+    "getable": true,
+    "setable": true,
+    "values": [
+	    {
+		    "id": "rainbow",
+		    "title": {
+			    "en": "Rainbow"
+		    }
+	    },
+	    {
+		    "id": "colorcycle",
+		    "title": {
+			    "en": "Color Cycle"
+		    }
+	    },
+	    {
+		    "id": "knightrider",
+		    "title": {
+			    "en": "Knight Rider"
+		    }
+	    }
+    ]
+}

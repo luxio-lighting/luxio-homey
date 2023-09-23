@@ -1,0 +1,11 @@
+{
+  "name": "lighting.luxio.homey",
+  "version": "1.0.0",
+  "description": "Adds support for Luxio Wi-Fi LED Strips",
+  "main": "app.js",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "tinycolor2": "^1.4.1",
+    "tinygradient": "^1.1.2"
+  }
+}
