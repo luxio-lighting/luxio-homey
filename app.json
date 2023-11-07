@@ -13,7 +13,7 @@
     "en": "Open Source Wi-Fi Gradient LED Strips"
   },
   "category": "lights",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "compatibility": ">=10.0.0",
   "author": {
     "name": "Luxio Lighting",

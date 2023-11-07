@@ -13,5 +13,8 @@
   },
   "2.1.1": {
     "en": "Fixed an issue where only 60 pixels would be synced."
+  },
+  "2.1.2": {
+    "en": "Fixed an unhandled crash."
   }
 }
