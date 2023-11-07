@@ -83,10 +83,10 @@ module.exports = class extends Homey.Device {
         }
       }
 
-      this.setAvailable();
+      this.setAvailable().catch(() => { });
     }).catch(err => {
       this.error(err);
-      this.setUnavailable(err);
+      this.setUnavailable(err).catch(() => { });
     });
   }
 
