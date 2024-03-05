@@ -16,8 +16,8 @@
     "dim",
     "light_hue",
     "light_saturation",
-    "luxio_gradient",
-    "luxio_effect"
+    "light_temperature",
+    "light_mode"
   ],
   "name": {
     "en": "Luxio"
@@ -34,6 +34,49 @@
     {
       "id": "add_devices",
       "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "id": "led_count",
+      "label": {
+        "en": "Number of LEDs"
+      },
+      "unit": {
+        "en": "LEDs"
+      },
+      "type": "number",
+      "min": 1,
+      "max": 512
+    },
+    {
+      "id": "led_pin",
+      "label": {
+        "en": "LED Pin"
+      },
+      "type": "number",
+      "min": 0
+    },
+    {
+      "id": "led_type",
+      "label": {
+        "en": "LED Type"
+      },
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "WS2812",
+          "label": {
+            "en": "WS2812 (RGB)"
+          }
+        },
+        {
+          "id": "SK6812",
+          "label": {
+            "en": "SK6812 (RGBW)"
+          }
+        }
+      ]
     }
   ]
 }

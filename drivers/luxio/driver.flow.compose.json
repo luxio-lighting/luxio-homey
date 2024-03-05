@@ -1,44 +1,6 @@
 {
 	"actions": [
 		{
-			"id": "set_effect",
-			"title": {
-				"en": "Set an effect",
-				"nl": "Start een effect"
-			},
-			"titleFormatted": {
-				"en": "Set effect to [[effect]]",
-				"nl": "Start effect [[effect]]"
-			},
-			"args": [
-				{
-					"title": "Effect",
-					"type": "dropdown",
-					"name": "effect",
-					"values": [
-						{
-							"id": "rainbow",
-							"label": {
-								"en": "Rainbow"
-							}
-						},
-						{
-							"id": "colorcycle",
-							"label": {
-								"en": "Color Cycle"
-							}
-						},
-						{
-							"id": "knightrider",
-							"label": {
-								"en": "Knight Rider"
-							}
-						}
-					]
-				}
-			]
-		},
-		{
 			"id": "set_gradient",
 			"title": {
 				"en": "Set a gradient",

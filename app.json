@@ -13,7 +13,7 @@
     "en": "Open Source Wi-Fi Gradient LED Strips"
   },
   "category": "lights",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "compatibility": ">=10.0.0",
   "author": {
     "name": "Luxio Lighting",
@@ -29,49 +29,6 @@
   },
   "flow": {
     "actions": [
-      {
-        "id": "set_effect",
-        "title": {
-          "en": "Set an effect",
-          "nl": "Start een effect"
-        },
-        "titleFormatted": {
-          "en": "Set effect to [[effect]]",
-          "nl": "Start effect [[effect]]"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=luxio"
-          },
-          {
-            "title": "Effect",
-            "type": "dropdown",
-            "name": "effect",
-            "values": [
-              {
-                "id": "rainbow",
-                "label": {
-                  "en": "Rainbow"
-                }
-              },
-              {
-                "id": "colorcycle",
-                "label": {
-                  "en": "Color Cycle"
-                }
-              },
-              {
-                "id": "knightrider",
-                "label": {
-                  "en": "Knight Rider"
-                }
-              }
-            ]
-          }
-        ]
-      },
       {
         "id": "set_gradient",
         "title": {
@@ -136,8 +93,8 @@
         "dim",
         "light_hue",
         "light_saturation",
-        "luxio_gradient",
-        "luxio_effect"
+        "light_temperature",
+        "light_mode"
       ],
       "name": {
         "en": "Luxio"
@@ -156,48 +113,52 @@
           "template": "add_devices"
         }
       ],
+      "settings": [
+        {
+          "id": "led_count",
+          "label": {
+            "en": "Number of LEDs"
+          },
+          "unit": {
+            "en": "LEDs"
+          },
+          "type": "number",
+          "min": 1,
+          "max": 512
+        },
+        {
+          "id": "led_pin",
+          "label": {
+            "en": "LED Pin"
+          },
+          "type": "number",
+          "min": 0
+        },
+        {
+          "id": "led_type",
+          "label": {
+            "en": "LED Type"
+          },
+          "type": "dropdown",
+          "values": [
+            {
+              "id": "WS2812",
+              "label": {
+                "en": "WS2812 (RGB)"
+              }
+            },
+            {
+              "id": "SK6812",
+              "label": {
+                "en": "SK6812 (RGBW)"
+              }
+            }
+          ]
+        }
+      ],
       "id": "luxio"
     }
   ],
-  "capabilities": {
-    "luxio_effect": {
-      "type": "enum",
-      "title": {
-        "en": "Effect"
-      },
-      "getable": true,
-      "setable": true,
-      "values": [
-        {
-          "id": "rainbow",
-          "title": {
-            "en": "Rainbow"
-          }
-        },
-        {
-          "id": "colorcycle",
-          "title": {
-            "en": "Color Cycle"
-          }
-        },
-        {
-          "id": "knightrider",
-          "title": {
-            "en": "Knight Rider"
-          }
-        }
-      ]
-    },
-    "luxio_gradient": {
-      "type": "string",
-      "title": {
-        "en": "Gradient"
-      },
-      "getable": true,
-      "setable": true,
-      "uiComponent": null
-    }
-  },
   "discovery": {
     "luxio": {
       "type": "mdns-sd",

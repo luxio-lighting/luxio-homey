@@ -1,9 +1,0 @@
-{
-    "type": "string",
-    "title": {
-        "en": "Gradient"
-    },
-    "getable": true,
-    "setable": true,
-    "uiComponent": null
-}
