@@ -16,5 +16,8 @@
   },
   "2.1.2": {
     "en": "Fixed an unhandled crash."
+  },
+  "3.0.0": {
+    "en": "Added support for the new Luxio firmware (v100+)."
   }
 }
