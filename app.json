@@ -29,6 +29,7 @@
     "email": "emile@athom.nl"
   },
   "support": "https://luxio.lighting",
+  "source": "https://github.com/luxio-lighting/luxio-homey",
   "esm": true,
   "flow": {
     "actions": [

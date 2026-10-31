@@ -28,5 +28,6 @@
     "name": "Emile Nijssen",
     "email": "emile@athom.nl"
   },
-  "support": "https://luxio.lighting"
+  "support": "https://luxio.lighting",
+  "source": "https://github.com/luxio-lighting/luxio-homey"
 }
