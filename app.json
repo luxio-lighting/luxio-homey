@@ -17,6 +17,7 @@
   "category": [
     "lights"
   ],
+  "brandColor": "#000000",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -26,5 +27,247 @@
   "author": {
     "name": "Emile Nijssen",
     "email": "emile@athom.nl"
+  },
+  "support": "https://luxio.lighting",
+  "esm": true,
+  "flow": {
+    "actions": [
+      {
+        "id": "set-gradient",
+        "title": {
+          "en": "Set a Gradient"
+        },
+        "titleFormatted": {
+          "en": "Set Gradient [[color1]] [[color2]] [[color3]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "color1",
+            "type": "color",
+            "title": {
+              "en": "Color 1"
+            }
+          },
+          {
+            "name": "color2",
+            "type": "color",
+            "title": {
+              "en": "Color 2"
+            }
+          },
+          {
+            "name": "color3",
+            "type": "color",
+            "title": {
+              "en": "Color 3"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-saved-color",
+        "title": {
+          "en": "Set a saved color"
+        },
+        "titleFormatted": {
+          "en": "Set saved color [[color]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "color",
+            "type": "autocomplete",
+            "title": {
+              "en": "Color"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-saved-gradient",
+        "title": {
+          "en": "Set a saved gradient"
+        },
+        "titleFormatted": {
+          "en": "Set saved gradient [[gradient]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "gradient",
+            "type": "autocomplete",
+            "title": {
+              "en": "Gradient"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-saved-animation",
+        "title": {
+          "en": "Set a saved animation"
+        },
+        "titleFormatted": {
+          "en": "Set saved animation [[animation]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "animation",
+            "type": "autocomplete",
+            "title": {
+              "en": "Animation"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-preset-color",
+        "title": {
+          "en": "Set a preset color"
+        },
+        "titleFormatted": {
+          "en": "Set preset color [[color]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "color",
+            "type": "autocomplete",
+            "title": {
+              "en": "Color"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-preset-gradient",
+        "title": {
+          "en": "Set a preset gradient"
+        },
+        "titleFormatted": {
+          "en": "Set preset gradient [[gradient]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "gradient",
+            "type": "autocomplete",
+            "title": {
+              "en": "Gradient"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set-preset-animation",
+        "title": {
+          "en": "Set a preset animation"
+        },
+        "titleFormatted": {
+          "en": "Set preset animation [[animation]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=luxio"
+          },
+          {
+            "name": "animation",
+            "type": "autocomplete",
+            "title": {
+              "en": "Animation"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Luxio"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_hue",
+        "light_saturation"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "discovery": "luxio",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "small": "/drivers/luxio/assets/images/small.png",
+        "large": "/drivers/luxio/assets/images/large.png",
+        "xlarge": "/drivers/luxio/assets/images/xlarge.png"
+      },
+      "id": "luxio"
+    }
+  ],
+  "discovery": {
+    "luxio": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "name": "luxio",
+        "protocol": "tcp"
+      },
+      "id": "{{txt.id}}",
+      "conditions": [
+        [
+          {
+            "field": "txt.build",
+            "match": {
+              "type": "regex",
+              "value": ".*"
+            }
+          }
+        ]
+      ]
+    }
   }
 }

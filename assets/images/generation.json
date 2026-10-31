@@ -1,0 +1,37 @@
+{
+  "tool": "Built-in image_gen",
+  "prompts": {
+    "app": "Use case: ads-marketing. Asset type: Homey app-store image for Luxio, an open-source Wi-Fi gradient LED strip lighting app. Generate a photorealistic premium architectural interior photograph, landscape aspect ratio 10:7, ideally 1500x1050 pixels. A quiet modern living room at blue hour, close enough that the lighting installation is the unmistakable main subject: concealed addressable LED strips under a floating light-oak media console and along a slim wall shelf produce a beautiful spatial gradient from turquoise mint through cyan to soft violet. Understated charcoal wall, warm wood, just a small neutral upholstered sofa edge and a single plant; tasteful lived-in details, no television or phone screen. Realistic light spill across the wall and floor, soft cinematic dusk, refined residential design rather than nightclub neon. Clear bold composition and large shapes that remain readable at 250x175 pixels. Fill the frame with the environment, no borders, no text, no logos, no characters, no watermarks, no Homey device, no app interface. Colors inspired by Luxio mint #2EECB6. Keep all important subjects inside the central 90 percent for resizing.",
+    "driver": "Use case: product-mockup. Asset type: Homey Luxio LED strip driver catalog image. Create a photorealistic studio product photograph, square 1:1 composition, ideally 1500x1500 pixels, opaque pure white background. One generic unbranded flexible addressable LED strip, white narrow PCB with evenly spaced small square LED packages and tiny copper contacts, arranged in an elegant compact loose coil with a single curved tail in the foreground. The coil lies mostly flat, photographed at a three-quarter overhead angle. Its individual LEDs glow in a smooth gradient along the strip, from mint turquoise through cyan to violet and warm pink, restrained and realistic, with subtle reflections. White PCB and copper pads remain clearly visible; realistic flexible strip construction, no giant neon tube. Centered object fills roughly 80 percent of the frame, clearly recognizable even at 75x75 pixels, all strip edges visible with generous white margin. Soft contact shadow only. No controller, remote, packaging, lettering, logo, watermark, extra objects or frame. Pure white background must remain white rather than grey."
+  },
+  "app": {
+    "directory": "assets/images",
+    "small": [
+      250,
+      175
+    ],
+    "large": [
+      500,
+      350
+    ],
+    "xlarge": [
+      1000,
+      700
+    ]
+  },
+  "driver": {
+    "directory": "drivers/luxio/assets/images",
+    "small": [
+      75,
+      75
+    ],
+    "large": [
+      500,
+      500
+    ],
+    "xlarge": [
+      1000,
+      1000
+    ]
+  }
+}

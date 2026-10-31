@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "tsc",
+    "test": "npm run build && node --test tests/*.test.mjs",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore ."
   },
   "type": "module",
@@ -10,9 +11,14 @@
     "@tsconfig/node16": "^16.1.9",
     "@types/homey": "npm:homey-apps-sdk-v3-types@^1.8.3",
     "@types/node": "^26.6.6",
+    "@types/ws": "^8.18.2",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "~8.57.1",
     "eslint-config-athom": "~4.0.2",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
+  },
+  "dependencies": {
+    "protobufjs": "^8.8.1",
+    "ws": "^8.22.1"
   }
 }

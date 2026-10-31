@@ -17,6 +17,7 @@
   "category": [
     "lights"
   ],
+  "brandColor": "#000000",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -26,5 +27,6 @@
   "author": {
     "name": "Emile Nijssen",
     "email": "emile@athom.nl"
-  }
+  },
+  "support": "https://luxio.lighting"
 }

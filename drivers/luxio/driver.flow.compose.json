@@ -33,12 +33,102 @@
       ]
     },
     {
-      "id": "set-animation",
+      "id": "set-saved-color",
       "title": {
-        "en": "Set an Animation"
+        "en": "Set a saved color"
       },
       "titleFormatted": {
-        "en": "Set [[animation]]"
+        "en": "Set saved color [[color]]"
+      },
+      "args": [
+        {
+          "name": "color",
+          "type": "autocomplete",
+          "title": {
+            "en": "Color"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-saved-gradient",
+      "title": {
+        "en": "Set a saved gradient"
+      },
+      "titleFormatted": {
+        "en": "Set saved gradient [[gradient]]"
+      },
+      "args": [
+        {
+          "name": "gradient",
+          "type": "autocomplete",
+          "title": {
+            "en": "Gradient"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-saved-animation",
+      "title": {
+        "en": "Set a saved animation"
+      },
+      "titleFormatted": {
+        "en": "Set saved animation [[animation]]"
+      },
+      "args": [
+        {
+          "name": "animation",
+          "type": "autocomplete",
+          "title": {
+            "en": "Animation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-preset-color",
+      "title": {
+        "en": "Set a preset color"
+      },
+      "titleFormatted": {
+        "en": "Set preset color [[color]]"
+      },
+      "args": [
+        {
+          "name": "color",
+          "type": "autocomplete",
+          "title": {
+            "en": "Color"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-preset-gradient",
+      "title": {
+        "en": "Set a preset gradient"
+      },
+      "titleFormatted": {
+        "en": "Set preset gradient [[gradient]]"
+      },
+      "args": [
+        {
+          "name": "gradient",
+          "type": "autocomplete",
+          "title": {
+            "en": "Gradient"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-preset-animation",
+      "title": {
+        "en": "Set a preset animation"
+      },
+      "titleFormatted": {
+        "en": "Set preset animation [[animation]]"
       },
       "args": [
         {
