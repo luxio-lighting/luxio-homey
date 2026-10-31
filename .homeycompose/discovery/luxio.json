@@ -1,0 +1,19 @@
+{
+  "type": "mdns-sd",
+  "mdns-sd": {
+    "name": "luxio",
+    "protocol": "tcp"
+  },
+  "id": "{{txt.id}}",
+  "conditions": [
+    [
+      {
+        "field": "txt.build",
+        "match": {
+          "type": "regex",
+          "value": ".*"
+        }
+      }
+    ]
+  ]
+}

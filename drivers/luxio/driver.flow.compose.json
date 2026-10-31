@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "id": "set-gradient",
+      "title": {
+        "en": "Set a Gradient"
+      },
+      "titleFormatted": {
+        "en": "Set Gradient [[color1]] [[color2]] [[color3]]"
+      },
+      "args": [
+        {
+          "name": "color1",
+          "type": "color",
+          "title": {
+            "en": "Color 1"
+          }
+        },
+        {
+          "name": "color2",
+          "type": "color",
+          "title": {
+            "en": "Color 2"
+          }
+        },
+        {
+          "name": "color3",
+          "type": "color",
+          "title": {
+            "en": "Color 3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "set-animation",
+      "title": {
+        "en": "Set an Animation"
+      },
+      "titleFormatted": {
+        "en": "Set [[animation]]"
+      },
+      "args": [
+        {
+          "name": "animation",
+          "type": "autocomplete",
+          "title": {
+            "en": "Animation"
+          }
+        }
+      ]
+    }
+  ]
+}
